@@ -56,10 +56,5 @@ jobs:
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E2DE1A42FDDC4E54901C7975E4FE1B50 }}
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v3
-        id: deploy-to-webapp
-        with:
-          app-name: 'twitch-bot'
-          slot-name: 'Production'
-          package: .
-          
+        run: |
+          npm run start
