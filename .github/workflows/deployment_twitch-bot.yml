@@ -50,18 +50,6 @@ jobs:
         with:
           node-version: '20.x'
       
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: node-app
-      
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_150A61E844BE4DC98678BF44132870C4 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_849D8DEBA5284910A95B3D80B1C490F5 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E2DE1A42FDDC4E54901C7975E4FE1B50 }}
-
       - name: npm install, build, and test
         run: |
           npm install
