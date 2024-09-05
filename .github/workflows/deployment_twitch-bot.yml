@@ -41,8 +41,22 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
-
+    
     steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+          
+      - name: npm install, build, and test
+        run: |
+          npm install
+          npm run build --if-present
+          npm run test --if-present
+          npm run start --if-present
+      
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
@@ -54,10 +68,3 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_150A61E844BE4DC98678BF44132870C4 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_849D8DEBA5284910A95B3D80B1C490F5 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_E2DE1A42FDDC4E54901C7975E4FE1B50 }}
-
-      - name: 'Deploy to Azure Web App'
-        run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
-          npm run start
